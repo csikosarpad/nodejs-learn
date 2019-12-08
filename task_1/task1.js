@@ -6,7 +6,6 @@ const rl = readline.createInterface({
 });
 
 const reversed = (sentence) => {
-    //return sentence.split(" ").reverse().join(" ")
     return sentence.split('').reverse().join('');
 };
 
