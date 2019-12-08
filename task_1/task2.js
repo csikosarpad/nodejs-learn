@@ -1,20 +1,20 @@
-const readline = require('readline');
+const csv = require('csvtojson');
+const { pipeline } = require('stream');
+const fs = require('fs');
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+const csvFile = __dirname + '/csv/node_mentoring_t1_2_input_example.csv';
+const textFile = __dirname + '/csv/node_mentoring_t1_2_input_example.txt';
 
-const reversed = (sentence) => {
-    //return sentence.split(" ").reverse().join(" ")
-    return sentence.split('').reverse().join('');
-};
-
-const question = () => {
-    console.log('Please write a short sentence here: ');
-    rl.on('line', (input) => {
-        console.log(reversed(`${input}`));
-      });
-};
-
-question();
+pipeline(
+  csv()
+    .fromFile(csvFile)
+    .subscribe(),
+  fs.createWriteStream(textFile),
+  (err) => {
+    if (err) {
+      console.error('File line write failed.', err);
+    } else {
+      console.log('File line write succeeded.');
+    }
+  }
+);
