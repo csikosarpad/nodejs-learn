@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "task1": "nodemon ./task1.js"
-  },
   "keywords": [],
   "author": "arpad_csikos@epam.com",
   "license": "ISC",
@@ -14,6 +11,13 @@
     "url": "git+ssh://git@github.com:csikosarpad/nodejs-learn.git"
   },
   "devDependencies": {
+    "csvtojson": "^2.0.10",
     "nodemon": "^2.0.1"
-  }
+  },
+  "scripts": {
+    "task1": "nodemon ./task1.js",
+    "task2": "nodemon ./task2.js"
+  },
+  "dependencies": {
+    "request": "^2.88.0"
 }
