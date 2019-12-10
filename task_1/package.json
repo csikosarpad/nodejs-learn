@@ -1,0 +1,19 @@
+{
+  "name": "task_1_1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "task1": "nodemon ./task1.js"
+  },
+  "keywords": [],
+  "author": "arpad_csikos@epam.com",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:csikosarpad/nodejs-learn.git"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.1"
+  }
+}
