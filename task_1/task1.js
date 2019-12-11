@@ -10,7 +10,7 @@ const reversed = (sentence) => {
 };
 
 const question = () => {
-    console.log('Please write a sentence!');
+    console.log('Please write a short sentence here: ');
     rl.on('line', (input) => {
         console.log(reversed(`${input}`));
       });
