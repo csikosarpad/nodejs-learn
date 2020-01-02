@@ -2,8 +2,9 @@ const csv = require('csvtojson');
 const { pipeline } = require('stream');
 const fs = require('fs');
 
-const csvFile = __dirname + '/csv/node_mentoring_t1_2_input_example.csv';
-const textFile = __dirname + '/csv/node_mentoring_t1_2_input_example.txt';
+import path from 'path'
+const csvFile = path.join(__dirname, '/csv/node_mentoring_t1_2_input_example.csv');
+const textFile = path.join(__dirname, '/csv/node_mentoring_t1_2_input_example.txt');
 
 pipeline(
   csv()
