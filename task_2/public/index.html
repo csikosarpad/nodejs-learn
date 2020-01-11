@@ -1,0 +1,26 @@
+<html>
+   <head>
+      <link href="/css/style.css"  rel="stylesheet"/>
+   </head>
+   <body>
+      <div class="main-page">
+         <form action = "http://localhost:8080/process_post" method = "POST">
+            <fieldset>
+               <legend>User</legend>
+               <label for="loginName">Login Name</label>
+               <input type = "text" id="login-loginName" name = "loginName" required />
+                
+               <label for="password">Password</label>
+               <input type = "password" name = "password" id="password" required />
+               <label for="age">Age</label>
+               <input type = "number" name = "age" id="age" required maxlength="2"/>
+
+            </fieldset>
+            <fieldset>
+               <input type = "reset" value = "Clear" />
+               <input type = "submit" value = "Submit" />
+            </fieldset>
+        </form>   
+      </div>
+ </body>
+</html>
