@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const app = express();
+app.use(bodyParser.json());
 app.use(cookieParser());
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -11,36 +12,53 @@ user = {
    db: [],
    counter: 0,
    add: function(user) {
-        console.log('user: ', user);
-        this.db.push(user);
-    },
+      console.log('user: ', user);
+      this.db.push(user);
+   },
     
-    remove: function(searchId) {
-        removable = this.find(searchId);
-        if (removable) {
-            removable.isDeleted = true;
-        } else {
-            console.log(`This id: ${searchId} isn't exist`);
-        }
-    },    
-    user: function(login, password, age) {
+   remove: function(searchId) {
+      removable = this.find(searchId);
+      if (removable) {
+         removable.isDeleted = true;
+      } else {
+         console.log(`This id: ${searchId} isn't exist`);
+      }
+   },    
+   restore: function(searchId) {
+      restorable = this.find(searchId);
+      if (restorable) {
+         restorable.isDeleted = false;
+      } else {
+         console.log(`This id: ${searchId} isn't exist`);
+      }
+   },    
+   person: function(login, password, age) {
       this.login = login;
       this.password = password;
       this.age = age;
       this.isDeleted = false;  
-    },
+   },
     
-    create: function(login, password, age){
-        thisUser = new this.user(login, password, age);
-        thisUser.id = this.counter++;
+   create: function(login, password, age){
+      if (typeof login === "object") {
+         userLogin = login.login;
+         userPassword = login.password;
+         userAge = login.age;
+      } else {
+         userLogin = login;
+         userPassword = password;
+         userAge = age;
+      }
+      thisUser = new this.person(userLogin, userPassword, userAge);
+      thisUser.id = this.counter++;
 
-        this.add(thisUser)
-    },
-    
-    find: function(searchId){
+      this.add(thisUser)
+   },
+   
+   find: function(searchId){
       result = this.db.find( ({ id }) => id === searchId );
       return result;
-    }
+   }
 }
 
 app.use(express.static('public'));
@@ -62,7 +80,6 @@ app.get('/process_get', function (req, res) {
       first_name: req.query.first_name,
       last_name: req.query.last_name
    };
-   console.log(req.query); 
    res.end(JSON.stringify(response));
 });
 
@@ -73,14 +90,15 @@ app.post('/', function (req, res) {
 });
 
 app.post('/process_post', urlencodedParser, function (req, res) {
-      // Prepare output in JSON format
+   // Prepare output in JSON format
    response = {
       login: req.body.loginName,
       password: req.body.password,
       age: req.body.age
    };
-   user.create(JSON.stringify(response));
-   res.send(JSON.stringify(response));
+   user.create(response);
+   res.json(response);
+   //res.send(JSON.stringify(response));
 })
 
 // This responds a DELETE request for the /del_user page.
@@ -91,8 +109,8 @@ app.delete('/del_user', function (req, res) {
 
 // This responds a GET request for the /list_user page.
 app.get('/list_user', function (req, res) {
-   console.log("Got a GET request for /list_user");
-   res.send('Page Listing');
+   console.log('user: ', user);
+   res.json(user.db);
 });
 
 // This responds a GET request for abcd, abxcd, ab123cd, and so on
