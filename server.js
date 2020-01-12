@@ -12,7 +12,6 @@ user = {
    db: [],
    counter: 0,
    add: function(user) {
-      console.log('user: ', user);
       this.db.push(user);
    },
     
@@ -56,7 +55,8 @@ user = {
    },
    
    find: function(searchId){
-      result = this.db.find( ({ id }) => id === searchId );
+      sId = parseInt(searchId);
+      result = this.db.find( ({ id }) => id === sId );
       return result;
    }
 }
@@ -69,8 +69,8 @@ app.get('/index.html', function (req, res) {
 
 // This responds with "Hello World" on the homepage
 app.get('/', function (req, res) {
-   console.log("Got a GET request for the homepage");
-   console.log("Cookies: ", req.cookies);
+   //console.log("Got a GET request for the homepage");
+   //console.log("Cookies: ", req.cookies);
    res.send('Hello GET');
 });
 
@@ -85,7 +85,7 @@ app.get('/process_get', function (req, res) {
 
 // This responds a POST request for the homepage
 app.post('/', function (req, res) {
-   console.log("Got a POST request for the homepage");
+   //console.log("Got a POST request for the homepage");
    res.send('Hello POST');
 });
 
@@ -103,13 +103,16 @@ app.post('/process_post', urlencodedParser, function (req, res) {
 
 // This responds a DELETE request for the /del_user page.
 app.delete('/del_user', function (req, res) {
-   console.log("Got a DELETE request for /del_user");
+   //console.log("Got a DELETE request for /del_user");
+   user.delete(req);
    res.send('Hello DELETE');
 });
 
 // This responds a GET request for the /list_user page.
 app.get('/list_user', function (req, res) {
-   console.log('user: ', user);
+   result = [];
+   console.log('user: ', req);
+   console.log('user: ', user.db);
    res.json(user.db);
 });
 
@@ -121,14 +124,25 @@ app.get('/ab*cd', function(req, res) {
 
 // This responds a GET request for abcd, abxcd, ab123cd, and so on
 app.get('/user/:id', function(req, res) {   
-   let employee = req.body;
+   let employee = user.find(req.params.id);
    if (employee === undefined) {
       res.status(404)
-      .json({message: `Employee with id ${req.params.id} not found`});
+      .json({message: `User with id ${req.params.id} not found`});
    } else {
       res.json(employee);
    }
    //res.send('Page Pattern Match');
+});
+
+app.get('/del_user/:id', function(req, res){
+   let employee = user.find(req.params.id);
+   if (employee === undefined) {
+      res.status(404)
+      .json({message: `User with id ${req.params.id} not found`});
+   } else {
+      user.remove(req.params.id);
+      res.json(user.db);
+   }
 });
 
 var server = app.listen(8080, function () {

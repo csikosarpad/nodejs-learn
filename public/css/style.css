@@ -32,3 +32,46 @@ label::after {
 label + input {
     margin-bottom: 10px;
 }
+
+.userList {
+    list-style-type: none;
+}
+
+.userList li {
+    display: table;
+    width: 100%;
+}
+
+.userList li strong,
+.userList li span {
+    display: table-cell;
+}
+
+.userList li strong {
+    width: 50%;
+}
+
+.userList li .user-age {
+    width: 30%;
+}
+
+.userList li .user-delete {
+    width: 20%;
+    text-align: center;
+}
+
+.list-header {
+    font-weight: bold;
+}
+
+.list-data li {
+    border-bottom: 1px solid #000;
+}
+
+.user-active {
+
+}
+
+.user-deleted {
+    color: #aaa;
+}
