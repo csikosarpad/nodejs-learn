@@ -111,8 +111,6 @@ app.delete('/del_user', function (req, res) {
 // This responds a GET request for the /list_user page.
 app.get('/list_user', function (req, res) {
    result = [];
-   console.log('user: ', req);
-   console.log('user: ', user.db);
    res.json(user.db);
 });
 

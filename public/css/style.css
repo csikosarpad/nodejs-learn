@@ -69,9 +69,40 @@ label + input {
 }
 
 .user-active {
+}
 
+.user-active:hover {
+    background-color: rgba(0,0,0,.1);
 }
 
 .user-deleted {
     color: #aaa;
+}
+
+.delete {
+    width: 10px;
+    height: 5px;
+    background-color: #f88;
+    cursor: pointer;
+}
+
+.delete:after {
+    content: 'delete';
+    display: block;
+    width: 100%;
+    color: #fff;
+    font-size: 1em;
+    text-align: center;
+    padding: 2px 0;
+}
+
+.delete:hover {
+    background-color: #f00;
+}
+.user-deleted .delete {
+    visibility: hidden;
+}
+
+.user-active .delete {
+        
 }
