@@ -1,0 +1,34 @@
+<html>
+   <head>
+      <link href="/css/style.css"  rel="stylesheet"/>
+      <script src="/js/jquery-3.4.1.min.js"></script>
+      <script src="/js/form.js"></script>
+   </head>
+   <body>
+      <div class="main-page">
+         <form action = "http://localhost:8080/process_post" method = "POST" id="userForm">
+            <fieldset>
+               <legend>User</legend>
+               <label for="loginName">Login Name</label>
+               <input type = "text" id="login-loginName" name = "loginName" required />
+                
+               <label for="password">Password</label>
+               <input type = "password" name = "password" id="password" required />
+               <label for="age">Age</label>
+               <input type = "number" name = "age" id="age" required maxlength="2"/>
+
+            </fieldset>
+            <fieldset>
+               <input type = "reset" value = "Clear" />
+               <input type = "submit" value = "Submit" id="formSubmit" />
+            </fieldset>
+      </form>
+      <ul class="userList list-header">
+         <li><strong>Login name</strong><span class="user-age">User age</span><span class="user-delete"> Action (delete) </span></li>
+      </ul>
+      <ul id="userList" class="userList list-data">
+         
+      </ul>
+</div>
+ </body>
+</html>
